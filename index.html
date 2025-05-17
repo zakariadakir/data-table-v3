@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Interactive and responsive data table for project management, built with Tailwind CSS. Features sorting, filtering, pagination, and bulk actions."
+    />
+    <meta
+      name="keywords"
+      content="interactive data table, project management, Tailwind CSS, responsive table, sorting, filtering, pagination"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/output.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <script type="module" src="./scripts/script.js" defer></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <title>Interactive Project Management Table with Tailwind CSS</title>
+  </head>
+  <body class="font-inter">
+    <header class="px-4 sticky top-0 z-20 bg-white pt-5">
+      <div class="flex justify-between items-center">
+        <h1 class="font-bold text-2xl text-gray-900 flex items-center gap-3">
+          Projects
+          <span
+            id="projectTotal"
+            class="font-medium text-xs text-indigo-500 bg-indigo-50 px-2.5 py-0.5 rounded-xl"
+          ></span>
+        </h1>
+        <div class="flex items-center gap-5">
+          <button
+            type="button"
+            class="ph-bold ph-bell text-xl text-gray-400 transition-all ease-in-out duration-300 hover:text-indigo-600"
+          ></button>
+          <button
+            type="button"
+            class="ph-bold ph-question text-xl text-gray-400 transition-all ease-in-out duration-300 hover:text-indigo-600"
+          ></button>
+          <button type="button" class="w-8 h-8 rounded-full">
+            <img
+              src="./images/user-profile.png"
+              alt="User's Profile Picture"
+              class="w-full h-full object-cover rounded-full"
+            />
+          </button>
+        </div>
+      </div>
+      <div class="flex items-center justify-between flex-wrap gap-4 my-8">
+        <input
+          type="search"
+          placeholder="Search"
+          id="projectSearchInput"
+          class="primary-input w-full min-[497px]:basis-[320px]"
+        />
+        <button
+          type="button"
+          id="createNewProjectButton"
+          class="button primary-button flex items-center justify-center w-full min-[497px]:w-fit gap-2.5"
+        >
+          <i class="ph-bold ph-plus"></i>
+          New Project
+        </button>
+      </div>
+      <nav class="horizontal-scroll-container pb-2 status-filter-nav">
+        <ul
+          id="statusFilterTabs"
+          class="flex items-center gap-6 whitespace-nowrap"
+        ></ul>
+      </nav>
+    </header>
+    <main>
+      <table class="data-table table-auto w-full h-full border-collapse">
+        <thead
+          class="bg-gray-0 sticky top-[220px] min-[497px]:top-44 w-full z-20 border-gray-1"
+        >
+          <tr>
+            <th class="px-2.5 py-3 min-w-[46px]">
+              <input
+                type="checkbox"
+                id="selectAllProjects"
+                class="select-checkbox select-all"
+              />
+            </th>
+            <th class="px-2.5 py-3 min-w-[48px]">
+              <button
+                type="button"
+                class="sort-button"
+                data-click-count="0"
+                data-sort-key="rowIndex"
+                data-active="false"
+                data-order="none"
+                aria-label="Sort by row index"
+              >
+                #<i class="ph ph-arrow-circle-up text-lg"></i>
+              </button>
+            </th>
+            <th class="px-2.5 py-3 text-left min-w-[298px]">
+              <button
+                type="button"
+                class="sort-button"
+                data-click-count="0"
+                data-sort-key="name"
+                data-active="false"
+                data-order="none"
+                aria-label="Sort by name"
+              >
+                Project Name<i class="ph ph-arrow-circle-up text-lg"></i>
+              </button>
+            </th>
+            <th class="px-2.5 py-3 min-w-[44px]">
+              <button
+                type="button"
+                class="sort-button"
+                data-click-count="0"
+                data-sort-key="manager"
+                data-active="false"
+                data-order="none"
+                aria-label="Sort by manager"
+              >
+                Pm<i class="ph ph-arrow-circle-up text-lg"></i>
+              </button>
+            </th>
+            <th class="px-2.5 py-3 min-w-[272px]">
+              <button
+                type="button"
+                class="sort-button"
+                data-click-count="0"
+                data-sort-key="status"
+                data-active="false"
+                data-order="none"
+                aria-label="Sort by status"
+              >
+                Status<i class="ph ph-arrow-circle-up text-lg"></i>
+              </button>
+            </th>
+            <th class="px-2.5 py-3 min-w-[200px]">
+              <button
+                type="button"
+                class="sort-button"
+                data-click-count="0"
+                data-sort-key="lastUpdated"
+                data-active="false"
+                data-order="none"
+                aria-label="Sort by last update"
+              >
+                Last update<i class="ph ph-arrow-circle-up text-lg"></i>
+              </button>
+            </th>
+            <th class="px-2.5 py-3 min-w-[100px]">
+              <button
+                type="button"
+                class="sort-button"
+                data-click-count="0"
+                data-sort-key="resources"
+                data-active="false"
+                data-order="none"
+                aria-label="Sort by resources"
+              >
+                Resources<i class="ph ph-arrow-circle-up text-lg"></i>
+              </button>
+            </th>
+            <th class="px-2.5 py-3 min-w-[260px]">
+              <button
+                type="button"
+                class="sort-button"
+                data-click-count="0"
+                data-sort-key="timeline"
+                data-active="false"
+                data-order="none"
+                aria-label="Sort by timeline"
+              >
+                Project TimeLine<i class="ph ph-arrow-circle-up text-lg"></i>
+              </button>
+            </th>
+            <th class="px-2.5 py-3 nmin-w-[140px]">
+              <button
+                type="button"
+                class="sort-button"
+                data-click-count="0"
+                data-sort-key="estimation"
+                data-active="false"
+                data-order="none"
+                aria-label="Sort by estimation"
+              >
+                Estimation<i class="ph ph-arrow-circle-up text-lg"></i>
+              </button>
+            </th>
+            <th class="px-2.5 py-3 min-w-[54px]">
+              <div class="w-fit mx-auto relative" id="bulkActionsContainer">
+                <button
+                  type="button"
+                  class="ph-bold ph-dots-three-vertical text-gray-400 p-1 rounded transition-all duration-300 ease-in-out hover:bg-indigo-0 hover:text-gray-700 hidden"
+                  id="bulkActionsButton"
+                ></button>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="projectsContainer"></tbody>
+      </table>
+      <div
+        class="flex pt-3 px-2.5 gap-4 justify-between items-center pb-5 bg-white sticky bottom-0"
+      >
+        <p id="paginationInfo" class="font-medium text-xs text-gray-500"></p>
+        <div class="flex items-center gap-4">
+          <div class="font-medium text-xs text-gray-500">
+            <label for="rowsPerPageSelect" class="cursor-pointer"
+              >Rows per page:</label
+            >
+            <select
+              class="cursor-pointer text-center"
+              id="paginationRowsSelect"
+            >
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+          <nav class="flex items-center gap-2">
+            <button
+              id="paginationPrevButton"
+              class="ph-bold ph-caret-left button secondary-button"
+            ></button>
+            <span
+              id="paginationCurrentPage"
+              class="font-medium text-xs text-gray-500"
+            ></span>
+            <button
+              id="paginationNextButton"
+              class="ph-bold ph-caret-right button secondary-button"
+            ></button>
+          </nav>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

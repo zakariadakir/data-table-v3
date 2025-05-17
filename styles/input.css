@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button {
+  @apply cursor-pointer rounded-md px-3 py-1 text-center text-sm font-medium transition-all duration-300 ease-in-out;
+}
+.primary-button {
+  @apply bg-indigo-500 text-white shadow-primaryButtonDefault hover:bg-indigo-600 hover:shadow-primaryButtonHover active:shadow-primaryButtonActive disabled:bg-indigo-400 disabled:shadow-primaryButtonDisabled disabled:text-indigo-0;
+}
+.secondary-button {
+  @apply bg-white text-gray-700 shadow-secondaryButtonDefault hover:text-gray-900 hover:shadow-secondaryButtonHover active:shadow-secondaryButtonActive disabled:bg-gray-0 disabled:shadow-secondaryButtonDisabled disabled:text-gray-400;
+}
+.danger-button {
+  @apply bg-red-500 text-white shadow-dangerButtonDefault hover:bg-red-600 hover:shadow-dangerButtonHover active:shadow-dangerButtonActive;
+}
+
+.primary-input {
+  @apply rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-700 outline-none shadow-primaryInputDefault transition-all duration-300 ease-in-out hover:shadow-primaryInputHover focus:shadow-primaryInputFocus;
+}
+
+.status-filter-nav {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.status-filter-nav::-webkit-scrollbar {
+  display: none;
+}
+.status-filter-nav button {
+  @apply relative flex items-center gap-1 text-sm font-medium text-gray-700
+  transition-all duration-300 ease-in-out hover:text-indigo-500;
+  @apply after:content-[''] after:absolute after:left-0 after:-bottom-2
+  after:h-[2.5px] after:bg-indigo-500 after:w-0;
+}
+.status-filter-nav button[data-active="true"] {
+  @apply font-bold text-indigo-500 after:w-full;
+}
+.status-filter-nav button span {
+  @apply text-[10px] px-1.5 rounded-xl bg-gray-1;
+}
+.status-filter-nav button[data-active="true"] span {
+  @apply font-bold;
+}
+
+.select-checkbox {
+  @apply relative w-4 h-4 rounded appearance-none border-none cursor-pointer outline-none transition-all duration-150 ease-in;
+  @apply shadow-checkboxDefault hover:shadow-checkboxHover active:shadow-checkboxActive disabled:shadow-checkboxDisabled;
+  @apply checked:bg-indigo-500;
+  @apply checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:transform checked:after:translate-x-[-50%] checked:after:translate-y-[-50%] checked:after:scale-100 after:scale-0 checked:after:text-xs checked:after:text-gray-100 after:transition-transform after:duration-150;
+}
+.select-single-project {
+  @apply checked:after:content-['✓'];
+}
+
+.toast-notification {
+  @apply fixed bottom-5 left-1/2 -translate-x-1/2 z-[100] px-5 py-4 w-max text-sm font-medium text-center rounded-lg flex items-center gap-2.5 bg-green-800 text-green-100 shadow-toastMessage;
+  animation: toast-in 0.5s ease forwards, toast-out 0.5s ease 4.5s forwards;
+}
+@keyframes toast-in {
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+@keyframes toast-out {
+  from {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+}
+
+.sort-button {
+  @apply inline-flex items-center gap-1 uppercase font-medium text-xs text-gray-500;
+}
+.sort-button[data-active="true"] {
+  @apply text-gray-900;
+}
+.sort-button[data-active="true"][data-order="desc"] i {
+  @apply rotate-180;
+}
+
+.tooltip {
+  @apply bg-gray-900 absolute w-max py-3 px-4 rounded-lg z-10 left-1/2 -translate-x-1/2 top-full text-center;
+  @apply before:content-[''] before:absolute before:border-[10px] before:left-1/2 before:-translate-x-1/2 before:border-x-[10px] before:border-b-[10px] before:border-t-0 before:border-transparent before:border-b-gray-900;
+}
+.manager-tooltip {
+  @apply tooltip before:top-[-7px];
+}
+.resource-tooltip {
+  @apply tooltip before:top-[-9px];
+}
+
+.status-cell .on-track {
+  @apply text-green-500 bg-green-0;
+}
+.status-cell .on-track-indicator {
+  @apply bg-green-500;
+}
+.status-cell .potential-risk {
+  @apply text-orange-500 bg-orange-0;
+}
+.status-cell .potential-risk-indicator {
+  @apply bg-orange-500;
+}
+.status-cell .on-hold {
+  @apply text-gray-500 bg-gray-50;
+}
+.status-cell .on-hold-indicator {
+  @apply bg-gray-500;
+}
+.status-cell .at-risk {
+  @apply text-red-500 bg-red-0;
+}
+.status-cell .at-risk-indicator {
+  @apply bg-red-500;
+}
+.status-update-form {
+  @apply absolute z-10 w-full max-w-[272px] rounded-lg bg-gray-0 shadow-statusUpdateForm top-full;
+  @apply before:content-[''] before:absolute before:border-[10px] before:left-1/2 before:-translate-x-1/2 before:border-x-[10px] before:border-b-[10px] before:border-t-0 before:border-transparent before:top-[-10px] before:border-b-gray-0;
+}
+.project-row:has(.status-update-form),
+.project-row:has(.select-checkbox:checked) {
+  @apply bg-gray-0;
+}
+.project-row:has(.status-update-form) .status-toggle-icon {
+  @apply block;
+}
+
+.resource-checkbox {
+  @apply cursor-pointer transition duration-300 py-0.5 px-2 tracking-[0.36px] text-xs font-medium rounded text-gray-700 bg-white shadow-resourceCheckboxDefault;
+  @apply hover:text-gray-900 hover:shadow-resourceCheckboxDefaultHover;
+  @apply active:shadow-resourceCheckboxDefaultActive;
+}
